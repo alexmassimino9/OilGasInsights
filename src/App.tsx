@@ -3,8 +3,8 @@ import {Heading,Section } from './components'
 const App = () => {
   return (
 <>
-<Heading title={'old lady'} />
-<Section>
+<Heading title={'heading'} />
+<Section title="">
   <div>
     this is a section
   </div>
