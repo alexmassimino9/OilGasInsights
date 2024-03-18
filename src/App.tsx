@@ -1,4 +1,3 @@
-import React from 'react';
 import {Heading,Section } from './components'
 const App = () => {
   return (

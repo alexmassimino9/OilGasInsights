@@ -1,8 +1,9 @@
-import React from "react"
+import { ReactElement } from "react";
+
 
 type SectionProps  = {
     title?:string, 
-    children: ReactNode
+    children: ReactElement
 }
 
 const Section = ({title, children}: SectionProps) => {
