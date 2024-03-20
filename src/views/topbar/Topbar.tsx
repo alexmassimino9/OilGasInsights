@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -11,37 +11,54 @@ const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const {desktop} = useGlobalContext();
+  const { desktop } = useGlobalContext();
   return (
-    <Box 
-    display="flex" 
-    justifyContent="space-between" 
-    p={1} 
-    bgcolor={colors.green[300]}
-  >
-    {/* Logo and title are hidden on mobile */}
-    {desktop && (
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      p={1}
+      bgcolor={colors.green[300]}
+    >
+      {/* Logo and title are hidden on mobile */}
+      {desktop && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          borderRadius="3px"
+        >
+          <img
+            src={Config.LOGO}
+            alt="logo"
+            className="logo"
+            style={{ marginRight: "8px" }}
+          />
+          <h1>Oil & Gas Insights</h1>
+        </Box>
+      )}
+
+      {/* Topbar menu */}
       <Box
         display="flex"
-        justifyContent="center"
-        alignItems="center"
-        borderRadius="3px"
+        sx={{
+          "& :hover": { backgroundColor: "inherit", color: colors.grey[100] },
+        }}
       >
-        <img src={Config.LOGO} alt="logo" className="logo" style={{ marginRight: '8px' }}/>
-        <h1>Oil & Gas Insights</h1>
+        <IconButton
+          onClick={colorMode.toggleColorMode}
+          aria-label="Toggle theme"
+        >
+          {theme.palette.mode === "dark" ? (
+            <DarkModeOutlinedIcon />
+          ) : (
+            <LightModeOutlinedIcon />
+          )}
+        </IconButton>
+        <IconButton aria-label="Settings">
+          <SettingsOutlinedIcon />
+        </IconButton>
       </Box>
-    )}
-
-    {/* Topbar menu */}
-    <Box display="flex" sx={{"& :hover": {backgroundColor: "inherit", color: colors.grey[100]}}}>
-      <IconButton onClick={colorMode.toggleColorMode} aria-label="Toggle theme">
-        {theme.palette.mode === "dark" ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
-      </IconButton>
-      <IconButton aria-label="Settings">
-        <SettingsOutlinedIcon />
-      </IconButton>
     </Box>
-  </Box>
   );
 };
 

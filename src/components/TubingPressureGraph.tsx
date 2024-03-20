@@ -7,7 +7,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { useGlobalContext } from "../context/AppContext";
 import { Box } from "@mui/material";
 
 const data = [
@@ -58,7 +57,6 @@ const data = [
 const TubingPressureGraph = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const { desktop } = useGlobalContext();
   return (
     <Paper
       sx={{
@@ -79,7 +77,7 @@ const TubingPressureGraph = () => {
       <Box
         sx={{
           width: "100%",
-          height: isMobile ? "200px" : "320px", // Adjust height for mobile
+          height: isMobile ? "200px" : "320px",
         }}
       >
         <ResponsiveContainer width="100%" height="100%">
