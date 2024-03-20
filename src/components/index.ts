@@ -1,6 +1,6 @@
 import Header from './Header'
-import Section from './Section'
+import TubingPressureGraph from './TubingPressureGraph'
 export {
     Header, 
-    Section,
+    TubingPressureGraph
 }

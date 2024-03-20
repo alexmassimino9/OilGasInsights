@@ -1,9 +1,19 @@
-type HeaderProps =   { title: string}
+import React from 'react';
+import {Typography ,Box}from '@mui/material';
 
-const Header = ({title}: HeaderProps) => {
+type HeaderProps = {
+  title: string;
+};
+
+const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
-    <h1>{title}</h1>
-  )
-}
+    <Box>
 
-export default Header
+    <Typography variant="h1" component="h1" sx={{marginBlock: "2rem",marginInline: 0}} gutterBottom>
+      {title}
+    </Typography>
+    </Box>
+  );
+};
+
+export default Header;

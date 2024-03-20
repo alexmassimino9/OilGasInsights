@@ -1,70 +1,98 @@
-import { useContext } from "react";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
-import { ColorModeContext } from "../../theme";
-import { Header } from "../../components";
-
-const data = [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+import React from "react";
+import { Header, TubingPressureGraph } from "../../components";
+import { Box, Grid, Typography, Paper } from "@mui/material";
 
 const Dashboard = () => {
-    const colorMode = useContext(ColorModeContext);
-    return (
-        <div>
-          <Header title={"Dashbord"}/>
-            <button onClick={colorMode.toggleColorMode}> Change mode</button>
-            <LineChart width={500} height={300} data={data}>
-    <XAxis dataKey="name"/>
-    <YAxis/>
-    <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+  return (
+    <Box sx={{ margin: "1rem", overflow: "hidden" }}>
+      {/* Header */}
+      <Header title="Dashboard" />
 
-    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-    <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-  </LineChart>
+      {/* Grids & Charts */}
+      <Grid
+        container
+        spacing={4}
+        sx={{ marginTop: "20px", border: "2px solid yellow" }}
+      >
+        {/* Row 1 */}
+        {Array.from({ length: 3 }).map((_, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Paper
+              elevation={3}
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                minHeight: 250,
+              }}
+            >
+              <Typography variant="h6" gutterBottom>
+                Tubing Pressure
+              </Typography>
+              <Box sx={{ width: "100%", flexGrow: 1 }}>
+                <TubingPressureGraph />
+              </Box>
+            </Paper>
+          </Grid>
+        ))}
 
-        </div>
-    )
-}
+        {/* Row 2 */}
+        <Grid item xs={12} sm={4} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              minHeight: 250,
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Tubing Pressure
+            </Typography>
+            <TubingPressureGraph />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={8} md={8}>
+          <Paper
+            elevation={3}
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              minHeight: 250,
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Tubing Pressure
+            </Typography>
+            <TubingPressureGraph />
+          </Paper>
+        </Grid>
 
-export default Dashboard
+        {/* Row 3: Insightful Row */}
+        <Grid item xs={12}>
+          <Paper elevation={3} sx={{ p: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Tubing Pressure Insights
+            </Typography>
+            <Box sx={{ width: "100%", minHeight: 300 }}>
+              <TubingPressureGraph mode="insightful" />
+            </Box>
+            <Typography>
+              Key Insights: Here you can add text or calculations that summarize
+              the trends observed in the tubing pressure over time, note any
+              anomalies, or compare current data with historical averages. This
+              section can be dynamically generated based on the data.
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
+
+export default Dashboard;
