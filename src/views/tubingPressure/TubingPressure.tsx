@@ -1,8 +1,7 @@
 import { Header, TubingPressureGraph } from "../../components";
 import { Box } from "@mui/material";
-interface Props {}
 
-const TubingPressure = (props: Props) => {
+const TubingPressure = () => {
   return (
     <Box>
       <Header title="Tubing Pressure" />
