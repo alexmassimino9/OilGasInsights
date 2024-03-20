@@ -41,8 +41,17 @@ body,
   background: #555;
 }
 .logo{
-  margin-inline: auto;
-  padding-block: 1rem;
-  width: 100px;
+  align-self: center;
+  margin: 0;
+  width: 38px;
+}
+
+/* mobile first styling */
+@media (min-width: 600px) {
+  .logo{
+    margin-inline: auto;
+    padding-block: 1rem;
+    width: 100px;
+  }
 }
 

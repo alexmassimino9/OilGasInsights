@@ -1,18 +1,8 @@
 import { useState } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import {ChevronLeft, Menu as MenuIcon} from '@mui/icons-material';
+import {Box,Drawer,List, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import {ChevronLeft, Menu as MenuIcon,Mail as MailIcon } from '@mui/icons-material';
 import {tokens} from '../../theme'
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import logo from '../../assets/logo.png'
 const drawerWidth = 240;
@@ -41,7 +31,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -73,39 +63,51 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [open, setOpen] = useState(false);
-  const mobile = useMediaQuery("")
-  const handleDrawerOpen = () => {
+  const desktop = useMediaQuery("(min-width: 600px");
+  const handleOpen = () => {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <StyledDrawer variant="permanent" open={open}
-      sx={{
+        sx={{
         "& .MuiDrawer-paper": {
           backgroundColor: colors.mirage[300]
         }
-      }}>
+            }}>
         {/* header */}
         <DrawerHeader>
         {
-          open ? <>
-          <img src={logo} alt={'logo'}  className='logo'/>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeft/>
-          </IconButton>
-          </> : <>
-          <IconButton onClick={handleDrawerOpen}>
-            <MenuIcon />
-          </IconButton>
-          </>
+          open && desktop ? 
+          <Box 
+            sx={{
+               display: 'flex', width: "100%", alignItems: "center",
+              justifyContent: "space-between", }}>
+            <img src={logo} alt={'logo'}  className='logo'/>
+              <IconButton onClick={handleClose}>
+                <ChevronLeft />
+              </IconButton>
+         
+          </Box> 
+          : !open && desktop ? 
+
+            <IconButton onClick={handleOpen} >
+              <MenuIcon/>
+            </IconButton>
+          :
+            <IconButton>
+            <img src={logo} alt={'logo'}  className='logo'/>
+            </IconButton>
         }
-        </DrawerHeader>
+        </DrawerHeader>  
         <Divider />
+
+
         <List>
           {["Dashboard", "Analytics"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
