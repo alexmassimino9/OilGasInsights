@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import {Box,Drawer,List, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import {ChevronLeft, Menu as MenuIcon,Mail as MailIcon } from '@mui/icons-material';
+import {ChevronLeft, Menu as MenuIcon,Mail as MailIcon, Dashboard as DashboardIcon } from '@mui/icons-material';
 import {tokens} from '../../theme'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Config from "../../config"
 import logo from '../../assets/logo.png'
 const drawerWidth = 240;
-
+const menu = Config.SIDEBAR_ITEMS
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -72,6 +73,7 @@ const Sidebar = () => {
     setOpen(false);
   };
 
+
   return (
     <Box sx={{ display: 'flex' }}>
       <StyledDrawer variant="permanent" open={open}
@@ -109,8 +111,8 @@ const Sidebar = () => {
 
 
         <List>
-          {["Dashboard", "Analytics"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {menu.map((item, index) => (
+            <ListItem key={item.id} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 50,
@@ -125,9 +127,9 @@ const Sidebar = () => {
                     justifyContent: 'center',
                   }}
                 >
-                    <MailIcon />
+                    {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={item.page} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
