@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { ColorModeContext } from "../../theme";
+import { Header } from "../../components";
 
 const data = [
     {
@@ -51,6 +52,7 @@ const Dashboard = () => {
     const colorMode = useContext(ColorModeContext);
     return (
         <div>
+          <Header title={"Dashbord"}/>
             <button onClick={colorMode.toggleColorMode}> Change mode</button>
             <LineChart width={500} height={300} data={data}>
     <XAxis dataKey="name"/>

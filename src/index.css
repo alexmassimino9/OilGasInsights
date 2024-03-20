@@ -15,7 +15,6 @@ body,
   margin: 0;
   width: 100%;
   font-family: "Lato", "Helvetica Neue", sans-serif;
-  border: 2px solid yellow;
 }
 .app {
   display: flex;
