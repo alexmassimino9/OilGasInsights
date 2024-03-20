@@ -1,22 +1,17 @@
 import { useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   List,
   Divider,
-  IconButton,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
 } from "@mui/material";
-import { ChevronLeft, Menu as MenuIcon } from "@mui/icons-material";
 import { tokens } from "../../theme";
 import { Link } from "react-router-dom";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Config from "../../config";
-import logo from "../../assets/logo.png";
 import { StyledDrawer, DrawerHeader } from "./";
 import { useGlobalContext } from "../../context/AppContext";
 

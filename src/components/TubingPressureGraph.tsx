@@ -6,6 +6,8 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
+import { Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { useGlobalContext } from "../context/AppContext";
 import { Box } from "@mui/material";
 
 const data = [
@@ -54,27 +56,43 @@ const data = [
 ];
 
 const TubingPressureGraph = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { desktop } = useGlobalContext();
   return (
-    <Box
-      m={"1rem"}
+    <Paper
       sx={{
-        width: "100%",
-        height: "320px",
-        padding: "1rem",
-        border: "2px solid grey",
-        marginInline: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
+      elevation={3}
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-          <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-        </LineChart>
-      </ResponsiveContainer>
-    </Box>
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ margin: isMobile ? "0.5rem" : "1rem" }}
+      >
+        Tubing Pressure Overview
+      </Typography>
+      <Box
+        sx={{
+          width: "100%",
+          height: isMobile ? "200px" : "320px", // Adjust height for mobile
+        }}
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+            <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+          </LineChart>
+        </ResponsiveContainer>
+      </Box>
+    </Paper>
   );
 };
 
