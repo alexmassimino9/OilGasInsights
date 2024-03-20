@@ -1,6 +1,6 @@
-import Heading from './Heading'
+import Header from './Header'
 import Section from './Section'
 export {
-    Heading, 
+    Header, 
     Section,
 }
