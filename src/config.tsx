@@ -1,4 +1,5 @@
 import {Dashboard as DashboardIcon, Analytics, Insights, TrendingDown, Troubleshoot}from "@mui/icons-material"
+import logo from "./assets/logo.png"
 const Config = {
     SIDEBAR_ITEMS :[
         {
@@ -36,7 +37,10 @@ const Config = {
           icon: <Troubleshoot />,
           description: "Integration of multiple data sources and analyses for comprehensive insights."
         }
-      ]}
+      ], 
+      DRAWER_WIDTH: 240,     
+      LOGO: logo
+    }
 
 
 export default Config

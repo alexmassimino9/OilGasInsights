@@ -45,6 +45,14 @@ body,
   margin: 0;
   width: 38px;
 }
+.sidebar-link {
+  /* border: 2px solid red; */
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  font-size: inherit;
+  width: 100%;
+}
 
 /* mobile first styling */
 @media (min-width: 600px) {
