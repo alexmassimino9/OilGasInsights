@@ -49,8 +49,9 @@ const Config = {
     },
   ],
   DRAWER_WIDTH: 240,
+  MAX_POINTS: 200,
   LOGO: logo,
-  mockURL: 'http://localhost:3500/0',
+  mockURL: "http://localhost:3500/0",
 };
 
 export default Config;

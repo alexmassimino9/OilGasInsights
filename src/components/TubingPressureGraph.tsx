@@ -9,28 +9,36 @@ import {
   ResponsiveContainer,
   Brush,
 } from "recharts";
-import { CustomTooltip } from "../views/tubingPressure"; // Ensure this is the correct path
+import { CustomTooltip } from "../views/tubingPressure"; // Adjust the import path as needed
 import { Paper, Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { useQuery } from "react-query";
 import { fetchData } from "../services/fetchData";
 import { transformData } from "../utils/transformData";
+import { aggregateData } from "../utils/aggregateData";
+import { ApiData } from "../types/dataModels"; // Ensure this matches your project structure
+
 const TubingPressureGraph: React.FC = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { data, isLoading, error } = useQuery("tubingPressureData", fetchData);
-  const transformedData = useMemo(() => {
+  const { data, isLoading, error } = useQuery<ApiData, Error>(
+    "tubingPressureData",
+    fetchData,
+  );
+
+  const processedData = useMemo(() => {
     if (!data) return [];
-    return transformData(
+    const transformed = transformData(
       data,
       "timestamp",
       "tubing_pressure",
       "tubingPressure",
     );
+    return aggregateData(transformed, 50, "tubingPressure");
   }, [data]);
-  console.log("data:", data);
-  if (isLoading) return <div> Loading...</div>;
-  if (error) return <div>Error FetchinIg data</div>;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error Fetching data: {error.message}</div>;
 
   return (
     <Paper
@@ -56,20 +64,16 @@ const TubingPressureGraph: React.FC = () => {
 
       <Box sx={{ width: "100%", height: "300px" }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={transformedData || []}>
-            <Brush
-              dataKey="timestamp"
-              height={30}
-              stroke={colors.mirage[300]}
-            />
+          <LineChart data={processedData}>
+            <Brush dataKey="name" height={30} stroke={colors.mirage[300]} />
             <XAxis
               dataKey="name"
               tick={{
-                fill: colors.grey[900],
+                fill: theme.palette.primary.main,
                 fontSize: 10,
               }}
-              tickFormatter={(timestamp) =>
-                new Date(timestamp).toLocaleTimeString("en-US", {
+              tickFormatter={(name) =>
+                new Date(name).toLocaleTimeString("en-US", {
                   hour12: false,
                   hour: "2-digit",
                   minute: "2-digit",
@@ -79,25 +83,25 @@ const TubingPressureGraph: React.FC = () => {
               textAnchor="end"
               height={40}
             />
-
             <YAxis
               tick={{
-                fill: colors.grey[900],
+                fill: theme.palette.primary.main,
               }}
               label={{
                 value: "Pressure (psi)",
                 angle: -90,
                 position: "insideLeft",
-                fill: colors.green[500],
+                fill: theme.palette.primary.main,
+
                 fontSize: "1rem",
               }}
             />
-            <CartesianGrid stroke={"none"} color={colors.grey[100]} />
+            <CartesianGrid stroke={"none"} color={theme.palette.primary.main} />
             <Tooltip content={<CustomTooltip />} />
             <Line
               type="monotone"
               dataKey="tubingPressure"
-              stroke="#7B1FA2"
+              stroke={colors.purple[300]}
               strokeWidth={2}
               activeDot={{ r: 6, fill: colors.tasman[100] }}
             />

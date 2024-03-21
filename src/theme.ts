@@ -7,8 +7,7 @@ type Mode = "dark" | "light";
 export const tokens = (mode: Mode) => ({
   ...(mode === "dark"
     ? {
-
-      // dark green
+        // dark green
         mirage: {
           100: "#040708",
           200: "#080e10",
@@ -18,11 +17,11 @@ export const tokens = (mode: Mode) => ({
           600: "#445053",
           700: "#737c7e",
           800: "#a1a7a9",
-          900: "#d0d3d4" 
+          900: "#d0d3d4",
         },
         // accent color
         tasman: {
-          100: "#2a2d29", 
+          100: "#2a2d29",
           200: "#535952",
           300: "#7d867c",
           400: "#a6b2a5",
@@ -30,11 +29,11 @@ export const tokens = (mode: Mode) => ({
           600: "#d9e5d8",
           700: "#e3ece2",
           800: "#ecf2eb",
-          900: "#f6f9f5" 
+          900: "#f6f9f5",
         },
         // primary color
         green: {
-          100: "#18220f", 
+          100: "#18220f",
           200: "#30451e",
           300: "#48672e",
           400: "#608a3d",
@@ -42,7 +41,7 @@ export const tokens = (mode: Mode) => ({
           600: "#93bd70",
           700: "#aecd94",
           800: "#c9deb7",
-          900: "#e4eedb" 
+          900: "#e4eedb",
         },
         grey: {
           100: "#181c1e",
@@ -53,10 +52,23 @@ export const tokens = (mode: Mode) => ({
           600: "#91a1ab",
           700: "#adb9c0",
           800: "#c8d0d5",
-          900: "#e4e8ea" 
-        }
+          900: "#e4e8ea",
+        },
+        //comp color
+        purple: {
+          100: "#e5d2ec",
+          200: "#caa5da",
+          300: "#b079c7",
+          400: "#954cb5",
+          500: "#7b1fa2",
+          600: "#621982",
+          700: "#4a1361",
+          800: "#310c41",
+          900: "#190620",
+        },
       }
-    : {
+    : // else light mode
+      {
         mirage: {
           100: "#d0d3d4",
           200: "#a1a7a9",
@@ -66,7 +78,7 @@ export const tokens = (mode: Mode) => ({
           600: "#111d20",
           700: "#0d1618",
           800: "#080e10",
-          900: "#040708"
+          900: "#040708",
         },
         tasman: {
           100: "#f6f9f5",
@@ -77,7 +89,7 @@ export const tokens = (mode: Mode) => ({
           600: "#a6b2a5",
           700: "#7d867c",
           800: "#535952",
-          900: "#2a2d29"
+          900: "#2a2d29",
         },
         green: {
           100: "#e4eedb",
@@ -88,7 +100,7 @@ export const tokens = (mode: Mode) => ({
           600: "#608a3d",
           700: "#48672e",
           800: "#30451e",
-          900: "#18220f"
+          900: "#18220f",
         },
         grey: {
           100: "#e4e8ea",
@@ -99,8 +111,19 @@ export const tokens = (mode: Mode) => ({
           600: "#5e6e78",
           700: "#47535a",
           800: "#2f373c",
-          900: "#181c1e"
-        }
+          900: "#181c1e",
+        },
+        purple: {
+          100: "#190620",
+          200: "#310c41",
+          300: "#4a1361",
+          400: "#621982",
+          500: "#7b1fa2",
+          600: "#954cb5",
+          700: "#b079c7",
+          800: "#caa5da",
+          900: "#e5d2ec",
+        },
       }),
 });
 
@@ -159,19 +182,19 @@ export const themeSettings = (mode: Mode): ThemeOptions => {
         fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
         fontSize: 24,
       },
-        h4: {
-          fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
-          fontSize: 20,
-        },
-        h5: {
-          fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
-          fontSize: 16,
-        },
-        h6: {
-          fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
-          fontSize: 14,
-        },
+      h4: {
+        fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
+        fontSize: 20,
       },
+      h5: {
+        fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
+        fontSize: 16,
+      },
+      h6: {
+        fontFamily: ["Lato", "Helvetica Neue", "Helvetica", "Arial"].join(", "),
+        fontSize: 14,
+      },
+    },
   };
 };
 
@@ -184,7 +207,7 @@ export const ColorModeContext = createContext<{
 
 export const useMode = () => {
   const [mode, setMode] = useState<Mode>(
-    () => (localStorage.getItem("themeMode") as Mode) || "dark"
+    () => (localStorage.getItem("themeMode") as Mode) || "dark",
   );
 
   useEffect(() => {
@@ -196,7 +219,7 @@ export const useMode = () => {
       toggleColorMode: () =>
         setMode((prev) => (prev === "light" ? "dark" : "light")),
     }),
-    []
+    [],
   );
 
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
