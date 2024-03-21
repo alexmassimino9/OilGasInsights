@@ -1,13 +1,13 @@
 import { Header, TubingPressureGraph } from "../../components";
 import { Box } from "@mui/material";
 
-const TubingPressure = () => {
+const CasingPressure = () => {
   return (
     <Box sx={{ margin: "1rem", overflow: "hidden" }}>
-      <Header title="Tubing Pressure" />
+      <Header title="Casing Pressure" />
       <TubingPressureGraph />
     </Box>
   );
 };
 
-export default TubingPressure;
+export default CasingPressure;

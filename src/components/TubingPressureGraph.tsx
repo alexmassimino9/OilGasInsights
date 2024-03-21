@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Brush,
 } from "recharts";
 import { CustomTooltip } from "../views/tubingPressure"; // Adjust import path as necessary
 import { Paper, Typography, Box, useTheme } from "@mui/material";
@@ -59,6 +60,7 @@ const TubingPressureGraph: React.FC = () => {
                 <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
               </linearGradient>
             </defs>
+            <Brush dataKey="timestamp" height={30} stroke="#8884d8" />
             <XAxis
               dataKey="timestamp"
               tick={{ fill: theme.palette.text.secondary, fontSize: 12 }}
