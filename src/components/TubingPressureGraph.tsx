@@ -9,14 +9,14 @@ import {
   ResponsiveContainer,
   Brush,
 } from "recharts";
-import { CustomTooltip } from "../views/tubingPressure"; // Adjust the import path as needed
+import { CustomTooltip } from "../views/tubingPressure";
 import { Paper, Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { useQuery } from "react-query";
 import { fetchData } from "../services/fetchData";
 import { transformData } from "../utils/transformData";
 import { aggregateData } from "../utils/aggregateData";
-import { ApiData } from "../types/dataModels"; // Ensure this matches your project structure
+import { ApiData } from "../types/dataModels";
 
 const TubingPressureGraph: React.FC = () => {
   const theme = useTheme();
@@ -85,7 +85,7 @@ const TubingPressureGraph: React.FC = () => {
             />
             <YAxis
               tick={{
-                fill: theme.palette.primary.main,
+                fill: colors.tasman[900],
               }}
               label={{
                 value: "Pressure (psi)",

@@ -52,6 +52,8 @@ const Config = {
   MAX_POINTS: 200,
   LOGO: logo,
   mockURL: "http://localhost:3500/0",
+  API_URL:
+    "https://api.boresite.io/storage/v1/object/public/assessment/data.json#",
 };
 
 export default Config;
