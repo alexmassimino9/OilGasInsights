@@ -10,11 +10,27 @@ import {
   Analysis,
 } from "./views";
 import { Route, Routes } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      cacheTime: 1000 * 60 * 60, // 1 hour
+      refetchInterval: 1000 * 30, // 30 seconds
+      refetchOnWindowFocus: false,
+      retry: 2,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+    },
+  },
+});
 
 const App = () => {
   const [theme, colorMode] = useMode();
   return (
-    <>
+    // Pass the instance to the client prop
+    <QueryClientProvider client={queryClient}>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -33,7 +49,7 @@ const App = () => {
           </div>
         </ThemeProvider>
       </ColorModeContext.Provider>
-    </>
+    </QueryClientProvider>
   );
 };
 

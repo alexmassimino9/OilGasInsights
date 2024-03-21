@@ -11,55 +11,26 @@ import {
 } from "recharts";
 import { CustomTooltip } from "../views/tubingPressure"; // Ensure this is the correct path
 import { Paper, Typography, Box, useTheme } from "@mui/material";
-import Config from "../config"; // Ensure this is the correct path
 import { tokens } from "../theme";
-
-interface ConfigStructure {
-  headers: string[];
-  units_of_measure: string[];
-  data: number[][];
-}
-
-interface ChartData {
-  timestamp: string;
-  tubingPressure: number;
-}
-const aggregateData = (data: ChartData[], maxPoints: number): ChartData[] => {
-  const interval = Math.ceil(data.length / maxPoints);
-  return data.reduce<ChartData[]>((acc, curr, index) => {
-    if (index % interval === 0) {
-      const end =
-        index + interval < data.length ? index + interval : data.length;
-      let sum = 0;
-      for (let i = index; i < end; i++) {
-        sum += data[i].tubingPressure;
-      }
-      const avg = sum / (end - index);
-      acc.push({ timestamp: curr.timestamp, tubingPressure: avg });
-    }
-    return acc;
-  }, []);
-};
-
+import { useQuery } from "react-query";
+import { fetchData } from "../services/fetchData";
+import { transformData } from "../utils/transformData";
 const TubingPressureGraph: React.FC = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const data: ChartData[] = useMemo(() => {
-    const configData: ConfigStructure = Config.data as ConfigStructure;
-    const timestampIndex = configData.headers.indexOf("timestamp");
-    const tubingPressureIndex = configData.headers.indexOf("tubing_pressure");
-
-    const rawData: ChartData[] = configData.data[timestampIndex].map(
-      (time, index) => ({
-        timestamp: new Date(time * 1000).toLocaleString("en-US", {
-          hour12: false,
-        }),
-        tubingPressure: configData.data[tubingPressureIndex][index],
-      }),
+  const { data, isLoading, error } = useQuery("tubingPressureData", fetchData);
+  const transformedData = useMemo(() => {
+    if (!data) return [];
+    return transformData(
+      data,
+      "timestamp",
+      "tubing_pressure",
+      "tubingPressure",
     );
-
-    return aggregateData(rawData, 500);
-  }, []);
+  }, [data]);
+  console.log("data:", data);
+  if (isLoading) return <div> Loading...</div>;
+  if (error) return <div>Error FetchinIg data</div>;
 
   return (
     <Paper
@@ -67,7 +38,7 @@ const TubingPressureGraph: React.FC = () => {
         p: 2,
         m: 1,
         overflow: "hidden",
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: colors.mirage[400],
       }}
       elevation={3}
     >
@@ -85,14 +56,14 @@ const TubingPressureGraph: React.FC = () => {
 
       <Box sx={{ width: "100%", height: "300px" }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <LineChart data={transformedData || []}>
             <Brush
               dataKey="timestamp"
               height={30}
               stroke={colors.mirage[300]}
             />
             <XAxis
-              dataKey="timestamp"
+              dataKey="name"
               tick={{
                 fill: colors.grey[900],
                 fontSize: 10,
@@ -126,7 +97,7 @@ const TubingPressureGraph: React.FC = () => {
             <Line
               type="monotone"
               dataKey="tubingPressure"
-              stroke={colors.green[700]}
+              stroke="#7B1FA2"
               strokeWidth={2}
               activeDot={{ r: 6, fill: colors.tasman[100] }}
             />
