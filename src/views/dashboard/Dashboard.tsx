@@ -1,4 +1,9 @@
-import { Header, TubingPressureGraph } from "../../components";
+import {
+  CasingPressureGraph,
+  Header,
+  TubingPressureGraph,
+  DepthGraph,
+} from "../../components";
 import { Box, Grid } from "@mui/material";
 
 const Dashboard = () => {
@@ -10,13 +15,22 @@ const Dashboard = () => {
       {/* Grids & Charts */}
       <Grid container spacing={4} sx={{ marginTop: "20px" }}>
         {/* Row 1 */}
-        {Array.from({ length: 3 }).map((_, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Box sx={{ width: "100%", flexGrow: 1 }}>
-              <TubingPressureGraph />
-            </Box>
-          </Grid>
-        ))}
+
+        <Grid item xs={12} sm={6} md={4}>
+          <Box sx={{ width: "100%", flexGrow: 1 }}>
+            <TubingPressureGraph />
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Box sx={{ width: "100%", flexGrow: 1 }}>
+            <CasingPressureGraph />
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Box sx={{ width: "100%", flexGrow: 1 }}>
+            <DepthGraph />
+          </Box>
+        </Grid>
 
         {/* Row 2 */}
         <Grid item xs={12} sm={4} md={4}>

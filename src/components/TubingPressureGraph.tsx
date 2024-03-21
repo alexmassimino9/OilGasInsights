@@ -85,7 +85,7 @@ const TubingPressureGraph: React.FC = () => {
             />
             <YAxis
               tick={{
-                fill: colors.tasman[900],
+                fill: colors.tasman[500],
               }}
               label={{
                 value: "Pressure (psi)",
