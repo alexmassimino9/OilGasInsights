@@ -75,14 +75,17 @@ const TubingPressureGraph: React.FC = () => {
         variant="h6"
         component="h2"
         gutterBottom
-        sx={{ color: colors.green[500] }}
+        sx={{
+          color: colors.green[500],
+          fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
+        }}
       >
         Tubing Pressure Over Time
       </Typography>
+
       <Box sx={{ width: "100%", height: "300px" }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
-            {/* Gradient definition remains the same */}
             <Brush
               dataKey="timestamp"
               height={30}
@@ -90,7 +93,10 @@ const TubingPressureGraph: React.FC = () => {
             />
             <XAxis
               dataKey="timestamp"
-              tick={{ fill: colors.grey[900], fontSize: 12 }}
+              tick={{
+                fill: colors.grey[900],
+                fontSize: 10,
+              }}
               tickFormatter={(timestamp) =>
                 new Date(timestamp).toLocaleTimeString("en-US", {
                   hour12: false,
@@ -100,9 +106,13 @@ const TubingPressureGraph: React.FC = () => {
               }
               angle={-45}
               textAnchor="end"
-              height={60}
+              height={40}
             />
+
             <YAxis
+              tick={{
+                fill: colors.grey[900],
+              }}
               label={{
                 value: "Pressure (psi)",
                 angle: -90,
@@ -111,24 +121,14 @@ const TubingPressureGraph: React.FC = () => {
                 fontSize: "1rem",
               }}
             />
-            <CartesianGrid
-              // strokeDasharray="9 9"
-              stroke={"none"}
-            />
+            <CartesianGrid stroke={"none"} color={colors.grey[100]} />
             <Tooltip content={<CustomTooltip />} />
             <Line
               type="monotone"
               dataKey="tubingPressure"
-              stroke={theme.palette.secondary.main}
-              strokeWidth={3}
-              dot={{
-                stroke: theme.palette.secondary.dark,
-                strokeWidth: 2,
-                r: 4,
-              }}
-              activeDot={{ r: 6 }}
-              fillOpacity={1}
-              fill="url(#pressureGradient)"
+              stroke={colors.green[700]}
+              strokeWidth={2}
+              activeDot={{ r: 6, fill: colors.tasman[100] }}
             />
           </LineChart>
         </ResponsiveContainer>
