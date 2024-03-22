@@ -3,6 +3,8 @@ import {
   Header,
   TubingPressureGraph,
   DepthGraph,
+  PressureComparisonGraph,
+  PressureGauge,
 } from "../../components";
 import { Box, Grid } from "@mui/material";
 
@@ -34,15 +36,15 @@ const Dashboard = () => {
 
         {/* Row 2 */}
         <Grid item xs={12} sm={4} md={4}>
-          <TubingPressureGraph />
+          <PressureGauge />
         </Grid>
         <Grid item xs={12} sm={8} md={8}>
-          <TubingPressureGraph />
+          <PressureComparisonGraph />
         </Grid>
 
         {/* Row 3: Insightful Row */}
         <Grid item xs={12}>
-          <TubingPressureGraph />
+          <PressureComparisonGraph />
         </Grid>
       </Grid>
     </Box>

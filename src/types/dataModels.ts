@@ -1,3 +1,5 @@
+import { PureComponent } from "react";
+
 export interface ApiData {
   headers: string;
   units_of_measure: string[];
@@ -25,4 +27,10 @@ export interface ConfigStructure {
 export interface ChartData {
   name: string;
   [key: string]: string | number;
+}
+
+export default class PressureComparisonChart extends PureComponent {
+  state = {
+    pressureData: [],
+  };
 }

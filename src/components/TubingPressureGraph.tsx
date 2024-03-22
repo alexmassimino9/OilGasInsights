@@ -101,7 +101,7 @@ const TubingPressureGraph: React.FC = () => {
             <Line
               type="monotone"
               dataKey="tubingPressure"
-              stroke={colors.purple[300]}
+              stroke={"#FF204E"}
               strokeWidth={2}
               activeDot={{ r: 6, fill: colors.tasman[100] }}
             />
